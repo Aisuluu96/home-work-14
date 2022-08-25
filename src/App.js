@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react'
+class AppClass extends React.Component {
+  state = {
+    nameOfList: "",
+    lists: []
+  };
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  render() {
+    console.log(this.state);
+    console.log(this.values);
+    return (
+      <div>
+        <h1>Lists</h1>
+        <input
+          type="text"
+          value={this.state.nameOfList}
+          onChange={this.handleChange.bind(this)}
+          name="nameofList"
+        />
+        <button onClick={this.handleAddClick.bind(this)}>Click</button>
+        <ul>
+          {this.state.lists.map((data, key) => (
+            <li key={key}>{data}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+  handleChange(e) {
+    this.setState({
+      nameOfList: e.target.value
+    });
+  }
+
+  handleAddClick() {
+    if (!this.state.nameOfList.length) {
+      return;
+    }
+    this.setState({
+      nameOfList: "",
+      lists: [...this.state.lists, this.state.nameOfList]
+    });
+  }
 }
-
-export default App;
+export default AppClass
